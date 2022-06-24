@@ -50,7 +50,7 @@ fn post_logged(request : &mut Request) -> IronResult<Response> {
 
         }
         Ok(map) => map;
-    }
+    };
     let unparsed_data = match form_data.get("username"){
         None => {
             response.set_mut(status::BadRequest);
@@ -58,7 +58,17 @@ fn post_logged(request : &mut Request) -> IronResult<Response> {
             return Ok(response);
         }
         Some(nums) => nums;
-    }
+    };
+
+    let unparsed_data2 = match form_data.get("password"){
+        None => {
+            response.set_mut(status::BadRequest);
+            response.set_mut(format!("Formularz nie zawiera hasła"));
+            return Ok(response);
+        }
+        Some(nums) => nums;
+    };
+
     
 }
 
